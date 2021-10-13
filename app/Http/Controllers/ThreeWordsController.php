@@ -84,4 +84,21 @@ class ThreeWordsController extends AbstractApiController
             return $response;
         }
     }
+
+    /**
+     * @param GeoThreeWords $geo
+     * @return JsonResponse
+     */
+    public function delete(GeoThreeWords $geo) :JsonResponse
+    {
+        try{
+            $geo->delete();
+
+            $response = $this->success('Delete Geo to What.3.words ID:'.$geo->id,$geo,200);
+        } catch (\Throwable $throwable){
+            $response = $this->error($throwable->getMessage(),$throwable->getCode() ?? 500);
+        } finally {
+            return $response;
+        }
+    }
 }

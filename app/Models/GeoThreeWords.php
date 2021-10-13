@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class GeoThreeWords
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class GeoThreeWords extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * @var string[]
@@ -32,6 +34,17 @@ class GeoThreeWords extends Model
 
     protected $appends = [
         'coordinates'
+    ];
+
+    public $timestamps = true;
+
+    /**
+     * @var string[]
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**

@@ -32,4 +32,7 @@ Route::group([
 
     Route::patch('/{geo}',[ThreeWordsController::class,'update'])
         ->name('update');
+
+    Route::delete('/{geo}',[ThreeWordsController::class,'delete'])
+        ->name('delete');
 });

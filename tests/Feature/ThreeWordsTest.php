@@ -133,4 +133,26 @@ class ThreeWordsTest extends TestCase
         $response->assertJsonFragment(['longitude'=>"{$post['longitude']}"]);
         $response->assertJsonFragment(['three_words'=>"{$post['three_words']}"]);
     }
+
+    /** @test */
+    public function can_soft_delete_geo_3_words_record()
+    {
+        $geo3Words = GeoThreeWords::factory(10)->create();
+
+        $this->assertInstanceOf(Collection::class,$geo3Words);
+
+        $randomThreeWords = $geo3Words->random();
+        $this->assertInstanceOf(GeoThreeWords::class,$randomThreeWords);
+
+        $this->assertNull($randomThreeWords->deleted_at);
+
+        $route = route('three.words.delete',['geo'=>$randomThreeWords]);
+
+        $response = $this->deleteJson($route);
+        $response->assertStatus(200);
+
+        $randomThreeWords = GeoThreeWords::withTrashed()->where('id','=',$randomThreeWords->id)->first();
+
+        $this->assertNotNull($randomThreeWords->deleted_at);
+    }
 }
