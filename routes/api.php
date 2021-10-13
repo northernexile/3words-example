@@ -26,4 +26,7 @@ Route::group([
 
     Route::get('/{geo}}',[ThreeWordsController::class,'show'])
         ->name('show');
+
+    Route::put('/',[ThreeWordsController::class,'create'])
+        ->name('create');
 });

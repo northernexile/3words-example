@@ -29,4 +29,23 @@ class GeoThreeWords extends Model
         'latitude'=>'string',
         'longitude'=>'string',
     ];
+
+    protected $appends = [
+        'coordinates'
+    ];
+
+    /**
+     * @return array
+     */
+    public function getCoordinatesAttribute() :array
+    {
+        return [
+            'latitude'=> (is_null($this->latitude))
+                ? null
+                : floatval($this->latitude),
+            'longitude'=> (is_null($this->longitude))
+                ? null
+                : floatval($this->longitude),
+        ];
+    }
 }

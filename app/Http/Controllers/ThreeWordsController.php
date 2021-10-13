@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateGeoThreeWordsRequest;
 use App\Models\GeoThreeWords;
 use Illuminate\Http\JsonResponse;
 
@@ -33,6 +34,27 @@ class ThreeWordsController extends AbstractApiController
     {
         try{
             $response = $this->success('Showing Geo to What.3.words ID:'.$geo->id,$geo);
+        } catch (\Throwable $throwable){
+            $response = $this->error($throwable->getMessage(),$throwable->getCode() ?? 500);
+        } finally {
+            return $response;
+        }
+    }
+
+    /**
+     * @param CreateGeoThreeWordsRequest $request
+     * @return JsonResponse
+     */
+    public function create(CreateGeoThreeWordsRequest $request) :JsonResponse
+    {
+        try{
+            $geo = GeoThreeWords::create(
+                $request->only([
+                    'latitude','longitude','three_words'
+                ])
+            );
+
+            $response = $this->success('Showing Geo to What.3.words ID:'.$geo->id,$geo,201);
         } catch (\Throwable $throwable){
             $response = $this->error($throwable->getMessage(),$throwable->getCode() ?? 500);
         } finally {
