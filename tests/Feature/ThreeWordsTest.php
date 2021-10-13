@@ -35,7 +35,7 @@ class ThreeWordsTest extends TestCase
     /** @test */
     public function can_list_geo_three_words()
     {
-        $geo3Words = GeoThreeWords::factory(2)->create();
+        $geo3Words = GeoThreeWords::factory(10)->create();
 
         $this->assertInstanceOf(Collection::class,$geo3Words);
 
@@ -43,6 +43,23 @@ class ThreeWordsTest extends TestCase
         $this->assertInstanceOf(GeoThreeWords::class,$randomThreeWords);
 
         $route = route('three.words.index');
+
+        $response = $this->getJson($route);
+        $response->assertStatus(200);
+        $response->assertJsonFragment(['latitude'=>$randomThreeWords->latitude]);
+        $response->assertJsonFragment(['longitude'=>$randomThreeWords->longitude]);
+        $response->assertJsonFragment(['three_words'=>$randomThreeWords->three_words]);
+    }
+
+    /** @test  */
+    public function can_get_specific_three_word_result_by_id()
+    {
+        $geo3Words = GeoThreeWords::factory(10)->create();
+
+        $randomThreeWords = $geo3Words->random();
+        $this->assertInstanceOf(GeoThreeWords::class,$randomThreeWords);
+
+        $route = route('three.words.show',['geo'=>$randomThreeWords]);
 
         $response = $this->getJson($route);
         $response->assertStatus(200);

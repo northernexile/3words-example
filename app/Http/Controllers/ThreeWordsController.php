@@ -24,4 +24,19 @@ class ThreeWordsController extends AbstractApiController
             return $response;
         }
     }
+
+    /**
+     * @param GeoThreeWords $geo
+     * @return JsonResponse
+     */
+    public function show(GeoThreeWords $geo) :JsonResponse
+    {
+        try{
+            $response = $this->success('Showing Geo to What.3.words ID:'.$geo->id,$geo);
+        } catch (\Throwable $throwable){
+            $response = $this->error($throwable->getMessage(),$throwable->getCode() ?? 500);
+        } finally {
+            return $response;
+        }
+    }
 }

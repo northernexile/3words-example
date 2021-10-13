@@ -15,5 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')
-    ->get('/', [ThreeWordsController::class,'index'])->name('three.words.index');
+Route::group([
+   'middleware'=>'auth:sanctum',
+   'name'=>'three.words',
+   'as'=>'three.words.'
+],function (){
+
+    Route::get('/', [ThreeWordsController::class,'index'])
+        ->name('index');
+
+    Route::get('/{geo}}',[ThreeWordsController::class,'show'])
+        ->name('show');
+});
