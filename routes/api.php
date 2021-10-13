@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CoordinateController;
 use App\Http\Controllers\ThreeWordsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,8 @@ Route::group([
 
     Route::delete('/{geo}',[ThreeWordsController::class,'delete'])
         ->name('delete');
+
+    Route::post('/coordinates',[CoordinateController::class,'show'])
+        ->name('coordinates.show');
+
 });
