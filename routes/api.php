@@ -24,9 +24,12 @@ Route::group([
     Route::get('/', [ThreeWordsController::class,'index'])
         ->name('index');
 
-    Route::get('/{geo}}',[ThreeWordsController::class,'show'])
+    Route::get('/{geo}',[ThreeWordsController::class,'show'])
         ->name('show');
 
     Route::put('/',[ThreeWordsController::class,'create'])
         ->name('create');
+
+    Route::patch('/{geo}',[ThreeWordsController::class,'update'])
+        ->name('update');
 });

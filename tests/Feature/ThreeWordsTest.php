@@ -99,4 +99,38 @@ class ThreeWordsTest extends TestCase
         $response->assertJsonFragment(['longitude'=>"{$post['longitude']}"]);
         $response->assertJsonFragment(['three_words'=>"{$post['three_words']}"]);
     }
+
+    /** @test  */
+    public function can_update_geo_what_3_words_record()
+    {
+        $existing = GeoThreeWords::factory()->create();
+
+        $post = [
+            'latitude'=>$this->faker->latitude,
+            'longitude'=>$this->faker->longitude,
+            'three_words'=>\implode('.',$this->faker->words(3))
+        ];
+
+        $this->assertDatabaseMissing('geo_three_words',[
+            'latitude'=>$post['latitude'],
+            'longitude'=>$post['longitude'],
+            'three_words'=>$post['three_words']
+        ]);
+
+        $route = route('three.words.update',['geo'=>$existing]);
+
+        $response = $this->patchJson($route,$post);
+
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('geo_three_words',[
+            'latitude'=>$post['latitude'],
+            'longitude'=>$post['longitude'],
+            'three_words'=>$post['three_words']
+        ]);
+
+        $response->assertJsonFragment(['latitude'=>"{$post['latitude']}"]);
+        $response->assertJsonFragment(['longitude'=>"{$post['longitude']}"]);
+        $response->assertJsonFragment(['three_words'=>"{$post['three_words']}"]);
+    }
 }
