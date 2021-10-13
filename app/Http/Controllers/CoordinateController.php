@@ -46,7 +46,7 @@ class CoordinateController extends AbstractApiController
                 $threeWordsData
             );
         } catch (\Throwable $throwable){
-            $response = $this->error($throwable->getMessage(),$throwable->getCode() ?? 500);
+            $response = $this->error($throwable->getMessage());
         } finally {
             return $response;
         }
