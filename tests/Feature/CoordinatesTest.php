@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
+use Mockery\Mock;
+use Northernexile\ThreeWords\ThreeWords;
 use Tests\TestCase;
 
 /**
@@ -34,11 +36,19 @@ class CoordinatesTest extends TestCase
     /** @test */
     public function can_retrieve_three_words_from_api()
     {
+
         $post = [
             'latitude'=>$this->faker->latitude,
             'longitude'=>$this->faker->longitude,
         ];
 
+        $fixture = ['nearestPlace','words','coordinates'];
+
+
+        $this->mock(ThreeWords::class,function (Mock $mock) use ($fixture){
+           $mock->shouldReceive('convertFromCoordinates')->withAnyArgs()->andReturn($fixture);
+        });
+        
         $route = route('three.words.coordinates.show');
 
         //Mock this next

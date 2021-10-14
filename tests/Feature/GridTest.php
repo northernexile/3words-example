@@ -31,6 +31,6 @@ class GridTest extends \Tests\TestCase
     /** @test  */
     public function can_receive_grid_object()
     {
-        
+
     }
 }
