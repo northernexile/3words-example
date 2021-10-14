@@ -48,7 +48,7 @@ class CoordinatesTest extends TestCase
         $this->mock(ThreeWords::class,function (Mock $mock) use ($fixture){
            $mock->shouldReceive('convertFromCoordinates')->withAnyArgs()->andReturn($fixture);
         });
-        
+
         $route = route('three.words.coordinates.show');
 
         //Mock this next
