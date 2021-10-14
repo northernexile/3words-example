@@ -5,24 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CoordinateRequest;
 use Illuminate\Http\JsonResponse;
 use Northernexile\ThreeWords\Models\Coordinates;
-use Northernexile\ThreeWords\ThreeWords;
 
-class CoordinateController extends AbstractApiController
+
+/**
+ * Class CoordinateController
+ * @package App\Http\Controllers
+ */
+class CoordinateController extends Abstract3WordsApiController
 {
-    /**
-     * @var ThreeWords
-     */
-    private $threeWords;
-
-    /**
-     * CoordinateController constructor.
-     * @param ThreeWords $threeWords
-     */
-    public function __construct(ThreeWords $threeWords)
-    {
-        $this->threeWords = $threeWords;
-    }
-
     /**
      * @param CoordinateRequest $request
      * @return JsonResponse

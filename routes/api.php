@@ -40,4 +40,7 @@ Route::group([
     Route::post('/coordinates',[CoordinateController::class,'show'])
         ->name('coordinates.show');
 
+    Route::post('/grid',[\App\Http\Controllers\GridController::class,'show'])
+        ->name('grid.show');
+
 });
